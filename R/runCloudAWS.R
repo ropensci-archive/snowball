@@ -43,7 +43,7 @@ execCloudAWS<-function(script,
   put_object(file=script, bucket = S3_BUCKET, object = S3_SCRIPT)
 
 
-  instance<-startInstance(userData = userData, ...)
+  instance <- startInstance(userData = userData, ...)
 
   #wait until finished
   #terminate_instances
