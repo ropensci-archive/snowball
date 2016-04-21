@@ -34,15 +34,15 @@ startInstance <- function(ami="ami-1170382b",
     securityGroup <- describe_sgroups()[[1]]
   }
 
-  if (userData==""){
-    userData=""
+  if (userData!=""){
+    userData=base64enc::base64encode(charToRaw(userData))
   }
 
   i <- run_instances(image    = ami,
                      type     = type,
                      subnet   = subNet,
                      sgroup   = securityGroup,
-                     userdata = base64enc::base64encode(charToRaw(userData)),
+                     userdata = userData,
                      IAMInstanceProfile = profile,
                      keypair=keypair)
   return(i)
