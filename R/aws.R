@@ -76,14 +76,14 @@ bucket_contents <- function(bucket) {
 #'
 #' @param config_file location of the configuration file, default ~/.snowball
 #'
-#' @return NULL
+#' @return NULL if echo=FALSE, otherwise prints config details
 #' @export
 #'
 #' @examples
 #' \dontrun{
 #' snowball_setup()
 #' }
-snowball_setup <- function(config_file="~/.snowball") {
+snowball_setup <- function(config_file="~/.snowball", echo=TRUE) {
 
   # Sys.setenv("AWS_ACCESS_KEY_ID" = "AKIAIVY2VRH3SKPPY6NQ",
   #            "AWS_SECRET_ACCESS_KEY" = "irIjn1DZTpf2ijZAtZZa4vt4Ce4oYIv+Yg7Y+/k3",
@@ -99,6 +99,12 @@ snowball_setup <- function(config_file="~/.snowball") {
             AWS_ACCESS_KEY_ID: <YOURACCESSSKEYID>\n
             AWS_SECRET_ACCESS_KEY: <YOURSECRETACCESSKEY>\n
             AWS_DEFAULT_REGION: <YOURDEFAULTREGION>")
+  }
+
+  if (echo) {
+    print(toJSON(as.list(Sys.getenv(c("AWS_ACCESS_KEY_ID",
+                                      "AWS_SECRET_ACCESS_KEY",
+                                      "AWS_DEFAULT_REGION"))), pretty = TRUE))
   }
 
   return(NULL)
