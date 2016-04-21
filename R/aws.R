@@ -19,7 +19,6 @@ startInstance <- function(ami="ami-1170382b",
                           type="t2.micro",
                           subNet=-1,
                           securityGroup=-1,
-                          keyName=-1,
                           userData="",
                           keypair="") {
   # library(aws.ec2)
