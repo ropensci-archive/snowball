@@ -1,0 +1,19 @@
+apt-get update
+apt-get install awscli
+
+mkdir ~/.aws
+echo > "
+[default]
+region = C
+aws_secret_access_key = B
+aws_access_key_id = A
+" > ~/.aws/config
+
+aws s3 cp s3://auunconfdt/example_test_simple.R /tmp/local.R --region ap-southeast-2
+
+
+R local.R > /tmp/out.txt
+
+awscli s3 cp /tmp/data.Rdata s3://auunconfdt/data.Rdata
+awscli s3 cp /tmp/out.txt s3://auunconfdt/out.txt
+
