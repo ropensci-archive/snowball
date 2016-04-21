@@ -1,7 +1,3 @@
-# library(devtools)
-# install_github("cloudyr/aws.ec2")
-# install_github("cloudyr/aws.s3")
-
 #' Start an AWS instance
 #'
 #' @param ami
@@ -50,4 +46,5 @@ startInstance <- function(ami="ami-1170382b",
                      IAMInstanceProfile = profile,
                      keypair=keypair)
   return(i)
+
 }
