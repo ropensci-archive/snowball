@@ -25,7 +25,8 @@ Start an AWS instance
 }
 \examples{
 \dontrun{
-startInstance()
+my_instance <- startInstance()
+instance_status(my_instance$item$instanceId[[1]])
 }
 }
 
