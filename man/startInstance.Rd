@@ -4,8 +4,8 @@
 \alias{startInstance}
 \title{Start an AWS instance}
 \usage{
-startInstance(ami = "ami-1170382b", type = "t2.micro", subNet = -1,
-  securityGroup = -1, keyName = -1, userData = "")
+startInstance(ami = "ami-da406db9", type = "t2.micro", subNet = -1,
+  securityGroup = -1, userData = "", keypair = "")
 }
 \arguments{
 \item{ami}{}
@@ -16,9 +16,9 @@ startInstance(ami = "ami-1170382b", type = "t2.micro", subNet = -1,
 
 \item{securityGroup}{}
 
-\item{keyName}{}
-
 \item{userData}{}
+
+\item{keyName}{}
 }
 \description{
 Start an AWS instance

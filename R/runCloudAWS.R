@@ -1,5 +1,17 @@
 # process end to end
 
+#' Execute cloud script
+#'
+#' @param script R script to be uploaded to workers
+#' @param S3_BUCKET name of bucket
+#' @param S3_SCRIPT name of script to run on workers
+#' @param S3_DATA_OUT
+#' @param S3_LOG_OUT
+#' @param ...
+#'
+#' @return NULL
+#' @export
+#'
 execCloudAWS<-function(script,
                     S3_BUCKET="auunconfdt",
                     S3_SCRIPT="script.R",

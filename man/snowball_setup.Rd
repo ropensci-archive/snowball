@@ -4,10 +4,13 @@
 \alias{snowball_setup}
 \title{Perform snowball setup}
 \usage{
-snowball_setup(config_file = "~/.snowball")
+snowball_setup(config_file = "~/.snowball", echo = TRUE)
 }
 \arguments{
 \item{config_file}{location of the configuration file, default ~/.snowball}
+}
+\value{
+NULL if echo=FALSE, otherwise prints config details
 }
 \description{
 Perform snowball setup
