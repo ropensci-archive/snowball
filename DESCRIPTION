@@ -2,8 +2,8 @@ Package: snowball
 Type: Package
 Title: Spin up a managed cluster and perform parallel calculations
 Version: 0.1.0
-Authors@R: person("#auunconf", "hackathoners", , "", role = c("aut", "cre"))
+Authors@R: person("#auunconf", "hackathoners", , "jono@jcarroll.com.au", role = c("aut", "cre"))
 Description: Spin up a head node, which spins up worker nodes, and performs parallel calculations
 License: What license is it under?
 LazyData: TRUE
-Depends: aws.ec2, aws.s3, snow
+Imports: aws.ec2, aws.s3, snow
