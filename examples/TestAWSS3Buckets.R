@@ -28,7 +28,7 @@
 
 my_bucket <- get_bucket("jcarroll1")
 
-s3save(x, object="x", bucket=my_bucket )
+s3save(x, object="x", bucket=my_bucket)
 
 y <- get_object("x", bucket=my_bucket)
 

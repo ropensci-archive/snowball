@@ -46,9 +46,9 @@ startInstance <- function(ami="ami-1170382b",
                      IAMInstanceProfile = profile,
                      keypair=keypair)
 
-    message(paste0("Starting ",i$item$instanceId[[1]]," instance, id ",i$item$instanceId[[1]]))
+  message(paste0("Starting ",i$item$instanceId[[1]]," instance, id ",i$item$instanceId[[1]]))
 
-      return(i)
+  return(i)
 
 }
 
@@ -71,6 +71,23 @@ bucket_contents <- function(bucket) {
 
 }
 
+## save_to_s3
+
+# s3save(x, object="x", bucket=my_bucket)
+
+#' Load an object from S3
+#'
+#' @param object_name name of object to be retrieved
+#' @param bucket a s3_bucket object or character string of such
+#'
+#' @return NULL
+#' @export
+#'
+load_from_s3 <- function(object_name, bucket) {
+  y <- get_object(object_name, bucket=bucket)
+  load(rawConnection(y))
+  return(NULL)
+}
 
 #' Perform snowball setup
 #'
@@ -85,8 +102,8 @@ bucket_contents <- function(bucket) {
 #' }
 snowball_setup <- function(config_file="~/.snowball", echo=TRUE) {
 
-  # Sys.setenv("AWS_ACCESS_KEY_ID" = "AKIAIVY2VRH3SKPPY6NQ",
-  #            "AWS_SECRET_ACCESS_KEY" = "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",
+  # Sys.setenv("AWS_ACCESS_KEY_ID" = "AKIAJLWGSIXBG27YXL5Q",
+  #            "AWS_SECRET_ACCESS_KEY" = "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",
   #            "AWS_DEFAULT_REGION" = "ap-southeast-2")
 
   if(file.exists(config_file)) {
