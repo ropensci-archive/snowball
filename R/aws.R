@@ -24,7 +24,8 @@ startInstance <- function(ami="ami-1170382b",
                           subNet=-1,
                           securityGroup=-1,
                           keyName=-1,
-                          userData="") {
+                          userData="",
+                          keypair="") {
   # library(aws.ec2)
 
   #describe_images(ami)
@@ -45,6 +46,8 @@ startInstance <- function(ami="ami-1170382b",
                      type     = type,
                      subnet   = subNet,
                      sgroup   = securityGroup,
-                     userdata = userData)
+                     userdata = userData,
+                     IAMInstanceProfile = profile,
+                     keypair=keypair)
   return(i)
 }
