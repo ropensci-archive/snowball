@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 ## adapted from https://cran.r-project.org/web/packages/doParallel/vignettes/gettingstartedParallel.pdf
 
+=======
+>>>>>>> a8e47b2ec4862e2508053f5c9ecfef2d76c38acb
 library(foreach)
 library(doParallel)
 
