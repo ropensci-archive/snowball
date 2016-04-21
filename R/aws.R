@@ -46,7 +46,7 @@ startInstance <- function(ami="ami-1170382b",
                      type     = type,
                      subnet   = subNet,
                      sgroup   = securityGroup,
-                     userdata = userData,
+                     userdata = base64enc::base64encode(charToRaw(userData)),
                      IAMInstanceProfile = profile,
                      keypair=keypair)
   return(i)
