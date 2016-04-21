@@ -6,3 +6,8 @@
 
 # library(snowball)
 
+# Sys.setenv("AWS_ACCESS_KEY_ID"     = "AKIAJMCHUEZGFZ5SUD6A",
+# "AWS_SECRET_ACCESS_KEY" = "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",
+# "AWS_DEFAULT_REGION"    = "ap-southeast-2")
+
+

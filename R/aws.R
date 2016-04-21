@@ -20,8 +20,11 @@ startInstance <- function(ami="ami-1170382b",
                           type="t2.micro",
                           subNet=-1,
                           securityGroup=-1,
-                          keyName=-1,
-                          userData="") {
+                          userData="",
+                          keypair="") {
+  # library(aws.ec2)
+
+  #describe_images(ami)
 
   if (subNet==-1) {
     subNet <- describe_subnets()[[1]]
@@ -31,19 +34,21 @@ startInstance <- function(ami="ami-1170382b",
     securityGroup <- describe_sgroups()[[1]]
   }
 
-  if (userData==""){
-    userData=""
+  if (userData!=""){
+    userData=base64enc::base64encode(charToRaw(userData))
   }
 
   i <- run_instances(image    = ami,
                      type     = type,
                      subnet   = subNet,
                      sgroup   = securityGroup,
-                     userdata = userData)
+                     userdata = userData,
+                     IAMInstanceProfile = profile,
+                     keypair=keypair)
 
-  message(paste0("Starting ",i$item$instanceId[[1]]," instance, id ",i$item$instanceId[[1]]))
+    message(paste0("Starting ",i$item$instanceId[[1]]," instance, id ",i$item$instanceId[[1]]))
 
-  return(i)
+      return(i)
 
 }
 
