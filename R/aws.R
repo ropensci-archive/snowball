@@ -1,7 +1,3 @@
-# library(devtools)
-# install_github("cloudyr/aws.ec2")
-# install_github("cloudyr/aws.s3")
-
 #' Start an AWS instance
 #'
 #' @param ami
@@ -25,9 +21,6 @@ startInstance <- function(ami="ami-1170382b",
                           securityGroup=-1,
                           keyName=-1,
                           userData="") {
-  # library(aws.ec2)
-
-  #describe_images(ami)
 
   if (subNet==-1) {
     subNet <- describe_subnets()[[1]]
@@ -46,5 +39,7 @@ startInstance <- function(ami="ami-1170382b",
                      subnet   = subNet,
                      sgroup   = securityGroup,
                      userdata = userData)
+
   return(i)
+
 }
