@@ -24,7 +24,8 @@ startInstance(ami = "ami-1170382b", type = "t2.micro", subNet = -1,
 Start an AWS instance
 }
 \examples{
-##NOT RUN
-NULL
+\dontrun{
+startInstance()
+}
 }
 

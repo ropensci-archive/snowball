@@ -16,8 +16,9 @@
 #'
 #' @examples
 #'
-#' ##NOT RUN
-#' NULL
+#' \dontrun{
+#' startInstance()
+#' }
 startInstance <- function(ami="ami-1170382b",
                           type="t2.micro",
                           subNet=-1,
