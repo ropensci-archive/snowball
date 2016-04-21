@@ -11,10 +11,13 @@
 #' @param keyName
 #' @param userData
 #'
-#' @return
+#' @return NULL
 #' @export
 #'
 #' @examples
+#'
+#' ##NOT RUN
+#' NULL
 startInstance <- function(ami="ami-1170382b",
                           type="t2.micro",
                           subNet=-1,
