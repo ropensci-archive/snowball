@@ -12,17 +12,17 @@
 #' @return NULL
 #' @export
 #'
-execCloudAWS<-function(script,
-                    S3_BUCKET="auunconfdt",
-                    S3_SCRIPT="script.R",
-                    S3_DATA_OUT="data.Rdata",
-                    S3_LOG_OUT="out.txt", ...){
+execCloudAWS <- function(script,
+                         S3_BUCKET="auunconfdt",
+                         S3_SCRIPT="script.R",
+                         S3_DATA_OUT="data.Rdata",
+                         S3_LOG_OUT="out.txt", ...){
 
   KEY_ID=Sys.getenv("AWS_ACCESS_KEY_ID")
   KEY_SECRET=Sys.getenv("AWS_SECRET_ACCESS_KEY")
   REGION=Sys.getenv("AWS_DEFAULT_REGION")
 
-  userData<-paste0('#!/bin/sh
+  userData <- paste0('#!/bin/sh
 
                    touch /tmp/I_AM_ALIVE
 
