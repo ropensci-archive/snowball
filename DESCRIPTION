@@ -6,4 +6,5 @@ Authors@R: person("#auunconf", "hackathoners", , "jono@jcarroll.com.au", role = 
 Description: Spin up a head node, which spins up worker nodes, and performs parallel calculations
 License: What license is it under?
 LazyData: TRUE
+LazyLoad: TRUE
 Depends: aws.ec2, aws.s3, snow
