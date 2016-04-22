@@ -7,10 +7,6 @@
 # library("aws.s3")
 
 #
-# AWS Access Key ID [None]: AKIAIVY2VRH3SKPPY6NQ
-# AWS Secret Access Key [None]: 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
-# Default region name [None]: ap-southeast-2
-#
 # bucketlist()
 # #Generate data to test push to and from S3
 # nRows<-100;
