@@ -6,7 +6,7 @@ SimpleExample<-function(data){
 
 ctrl <- caret::trainControl(method = "cv", savePred=T, classProb=T)
 
-mod  <- caret::train(Species~., data=data_location, method = "svmLinear", trControl = ctrl)
+mod  <- caret::train(Species~., data=data, method = "svmLinear", trControl = ctrl)
 
 return(mod)
 }
