@@ -6,6 +6,7 @@
 ## get/load purrr for purrr::safely
 ## get/load cloudyr/aws.s3 for in/out on S3
 # pacman::p_load(purrr, aws.s3)
+install.packages("purrr")
 library(purrr)
 library(aws.s3)
 
