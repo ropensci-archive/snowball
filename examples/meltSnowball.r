@@ -6,8 +6,8 @@
 ## get/load purrr for purrr::safely
 ## get/load cloudyr/aws.s3 for in/out on S3
 # pacman::p_load(purrr, aws.s3)
-install.packages("purrr")
-library(purrr)
+# install.packages("purrr")
+# library(purrr)
 library(aws.s3)
 
 ## bucket name that the schedule will be in
@@ -22,13 +22,13 @@ cat(paste0("instanceID = ",instanceID))
 all_buckets <- bucketlist()
 cat("all_buckets = ")
 print(all_buckets)
-if (length(all_buckets)==0) bucket_exists <- FALSE
-if (length(all_buckets)==1) {
-  bucket_exists <- bucket %in% all_buckets$Name
-} else if (length(all_buckets)>1) {
-  bucket_exists <- any(bucket %in% unlist(lapply(1:length(all_buckets), function(x) all_buckets[[x]][["Name"]])))
-}
-if(!bucket_exists) return("SNOWMAN BUCKET NOT AVAILABLE")
+# if (length(all_buckets)==0) bucket_exists <- FALSE
+# if (length(all_buckets)==1) {
+#   bucket_exists <- bucket %in% all_buckets$Name
+# } else if (length(all_buckets)>1) {
+#   bucket_exists <- any(bucket %in% unlist(lapply(1:length(all_buckets), function(x) all_buckets[[x]][["Name"]])))
+# }
+# if(!bucket_exists) return("SNOWMAN BUCKET NOT AVAILABLE")
 
 ## get the bucket as an object
 snowball_bucket <- get_bucket(bucket)
@@ -55,14 +55,14 @@ while (TRUE) { ## Loop forever waiting for a snowman.rds
     if (nrow(my_jobs)==0) return("NO JOBS REQUESTED") # no work to do, return
     if (nrow(my_jobs)>1) my_jobs <- my_jobs[1,] ## only deal with the first job for now
 
-    ## make sure that this worker's bucket is available
-    if (length(all_buckets)==0) my_bucket_exists <- FALSE
-    if (length(all_buckets)==1) {
-      my_bucket_exists <- my_jobs$BUCKET %in% all_buckets$Name
-    } else if (length(all_buckets)>1) {
-      my_bucket_exists <- any(my_jobs$BUCKET %in% unlist(lapply(1:length(all_buckets), function(x) all_buckets[[x]][["Name"]])))
-    }
-    if(!my_bucket_exists) return("BUCKET FOR JOB DOES NOT EXIST")
+    # ## make sure that this worker's bucket is available
+    # if (length(all_buckets)==0) my_bucket_exists <- FALSE
+    # if (length(all_buckets)==1) {
+    #   my_bucket_exists <- my_jobs$BUCKET %in% all_buckets$Name
+    # } else if (length(all_buckets)>1) {
+    #   my_bucket_exists <- any(my_jobs$BUCKET %in% unlist(lapply(1:length(all_buckets), function(x) all_buckets[[x]][["Name"]])))
+    # }
+    # if(!my_bucket_exists) return("BUCKET FOR JOB DOES NOT EXIST")
 
     ## try to get the results file from S3
     my_output_obj <- head_object(paste0(my_jobs$OUTPUT, "_", my_jobs$WORKERID, ".rds"), bucket=my_jobs$BUCKET)
@@ -91,9 +91,9 @@ while (TRUE) { ## Loop forever waiting for a snowman.rds
                                   "Function loaded has size = ", my_function_size)
       s3save(checkpoint_string, object=paste0(checkpoint, "_", my_jobs$WORKERID, ".txt"), bucket=my_jobs$BUCKET)
 
-      ## safely evaluate the function
-      safefn <- safely(as.function(eval(my_jobs$FUNCTION)))
-      return_from_fn <- safefn(my_jobs$DATA, my_jobs$x, my_jobs$DOTS)
+      # ## safely evaluate the function
+      # safefn <- safely(as.function(eval(my_jobs$FUNCTION)))
+      # return_from_fn <- safefn(my_jobs$DATA, my_jobs$x, my_jobs$DOTS)
 
       ## write the output to S3 (result if successful, error if not)
       if(is.null(return_from_fn$error)) {
