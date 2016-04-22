@@ -46,7 +46,7 @@ while (TRUE) { ## Loop forever waiting for a snowman.rds
 
     ## SNOWMAN IS EXPECTED TO BE A DATA.FRAME OF THE FOLLOWING FORMAT
     ##
-    ## WORKERID | INSTANCEID | FUNCTION | X | DATA | OUTPUT | DOTS
+    ## WORKERID | BUCKET | INSTANCEID | FUNCTION | X | DATA | OUTPUT | DOTS
     ##
 
     ## check the schedule and existence of output, taking the first entry for this worker
