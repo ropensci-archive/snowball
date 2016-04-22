@@ -12,6 +12,10 @@
 #' @return NULL
 #' @export
 #'
+
+
+# example: execCloudAWS("R/example_test_simple.R",S3_BUCKET = "auunconfdt2", S3_SCRIPT = "script.R",keypair="AUUNCONF2")
+
 execCloudAWS <- function(script,
                          S3_BUCKET="auunconfdt",
                          S3_SCRIPT="script.R", ...){
