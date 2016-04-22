@@ -9,6 +9,9 @@
 # library(purrr)
 library(aws.s3)
 
+## check that the AWS environment variable is set
+if(Sys.getenv("AWS_ACCESS_KEY_ID")=="") return("NO AWS ACCESS AVAILABLE")
+
 ## bucket name that the schedule will be in
 bucket <- Sys.getenv("BUCKET")
 cat(paste0("bucket = ",bucket))
