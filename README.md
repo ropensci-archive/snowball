@@ -3,6 +3,8 @@
 An R package to do parallel processing on Amazon, (more) easily.
 Born 2016, at the [Brisbane ROpenSci Unconference][52d207af]  .
 
+<img align="center" src="misc/CHsnowballs.gif">
+
   [52d207af]: http://auunconf.ropensci.org "Brisbane Unconference"
 
 Authors:
@@ -20,6 +22,8 @@ Authors:
 devtools::install_github("ropenscilabs/snowball")
 ```
 # WARNING:  _Check yourself, before you wreck yourself!_  You are the ruler of your own Amazon costs.(AKA: no responsibility taken for your AWS bill...)
+
+<img align="center" src="misc/snowman1.jpg">
 
 `snowball` takes the location of data, a user defined function, and some basic instructions to set up and run  virtual machines in parallel on Amazon, and save results in an S3 bucket.
 
