@@ -22,7 +22,7 @@ startInstance <- function(ami="ami-da406db9",
                           subNet=-1,
                           securityGroup=-1,
                           userData="",
-                          keypair="") {
+                          keypair=NULL) {
   # library(aws.ec2)
 
   #describe_images(ami)
@@ -45,9 +45,9 @@ startInstance <- function(ami="ami-da406db9",
                      sgroup   = securityGroup,
                      userdata = userData,
                      IAMInstanceProfile = profile,
-                     keypair=keypair)
+                     keypair  = keypair)
 
-  message(paste0("Starting ",i$item$instanceId[[1]]," instance, id ",i$item$instanceId[[1]]))
+  message(paste0("Starting a ",i$item$instanceType[[1]]," instance, id ",i$item$instanceId[[1]]))
 
   return(i)
 
