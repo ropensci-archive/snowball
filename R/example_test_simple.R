@@ -1,2 +1,3 @@
-# x<-1:10;
-# save(x,file="/tmp/data.Rdata");
+ # x<-1:10
+ #
+ # print(x)

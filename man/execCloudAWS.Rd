@@ -4,8 +4,7 @@
 \alias{execCloudAWS}
 \title{Execute cloud script}
 \usage{
-execCloudAWS(script, S3_BUCKET = "auunconfdt", S3_SCRIPT = "script.R",
-  S3_DATA_OUT = "data.Rdata", S3_LOG_OUT = "out.txt", ...)
+execCloudAWS(script, S3_BUCKET = "auunconfdt", S3_SCRIPT = "script.R", ...)
 }
 \arguments{
 \item{script}{R script to be uploaded to workers}
@@ -14,11 +13,11 @@ execCloudAWS(script, S3_BUCKET = "auunconfdt", S3_SCRIPT = "script.R",
 
 \item{S3_SCRIPT}{name of script to run on workers}
 
+\item{...}{}
+
 \item{S3_DATA_OUT}{}
 
 \item{S3_LOG_OUT}{}
-
-\item{...}{}
 }
 \description{
 Execute cloud script

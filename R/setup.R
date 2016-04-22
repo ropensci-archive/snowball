@@ -1,15 +1,17 @@
-#' Perform snowball setup
+#' Perform snowball setup. Read AWS key pair from file.
 #'
 #' @param config_file location of the configuration file, default ~/.snowball
 #'
-#' @return NULL if echo=FALSE, otherwise prints config details
+#' @param echo if TRUE print the credentials read from the file to the console.
+#'
+#' @return TRUE if config sucessfully read and set. False if file could not be found.
 #' @export
 #'
 #' @examples
 #' \dontrun{
 #' snowball_setup()
 #' }
-snowball_setup <- function(config_file="~/.snowball", echo=TRUE) {
+snowball_setup <- function(config_file="~/.snowball", echo=FALSE) {
 
   if(file.exists(config_file)) {
     config <- read.dcf(config_file, fields=c("AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY", "AWS_DEFAULT_REGION"))
@@ -23,7 +25,7 @@ snowball_setup <- function(config_file="~/.snowball", echo=TRUE) {
             AWS_DEFAULT_REGION: <YOURDEFAULTREGION>")
   }
 
-  if (echo) {
+  if(echo) {
     print(toJSON(as.list(Sys.getenv(c("AWS_ACCESS_KEY_ID",
                                       "AWS_SECRET_ACCESS_KEY",
                                       "AWS_DEFAULT_REGION"))), pretty = TRUE))

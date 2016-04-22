@@ -58,7 +58,7 @@ What `snowball` does:
 > Start an AWS instance with buckets, while setting up the data/feature split
 
 ```r
-snowpack(user_function, listItem, bucketname, rdsInput, rdsOut)
+##snowpack(user_function, listItem, bucketname, rdsInput, rdsOut)
 
 ```
 
