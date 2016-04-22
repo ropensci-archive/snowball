@@ -58,7 +58,7 @@ What `snowball` does:
 > Start an AWS instance with buckets, while setting up the data/feature split
 
 ```r
-##snowpack(user_function, listItem, bucketname, rdsInput, rdsOut)
+snowpack(user_function, listItem, bucketname, rdsInput, rdsOut)
 
 ```
 
@@ -82,14 +82,16 @@ snowpack(fn, listItem, bucketNameString, rdsInputObjectString, rdsOutputString)
 ```
 
 
+
+
 ## More help?
-<img align="center" src="misc/CHsnowballs.gif">
+<img align="center" src="misc/Olivia_help.gif">
 
-![http://finaldestination.wikia.com/wiki/File:Olivia_help_me.gif]
 
-#### S3 Bucket..??
 
-We assume you have a (very) basic understanding of  what an S3 Bucket is. (Here it is: it's like dropbox, for data. mind blown aye...) [Click here for info from Amazon.](https://docs.aws.amazon.com/AmazonS3/latest/UG/CreatingaBucket.html). It is super easy to create a bucket. You just click `create bucket`.
+#### What is an S3 Bucket..??
+
+We assume you have a (very) basic understanding of  what an S3 Bucket is (it's like dropbox, for data). [Click here for info from Amazon.](https://docs.aws.amazon.com/AmazonS3/latest/UG/CreatingaBucket.html). It is very easy to create a bucket. You just click `create bucket`.
 
 Setting up the 'bucket policy allowing an IAM user full access' is harder:
   - In the top left of an AWS window click on `Services`, then `IAM`, then click on the user you want to give access to (you, most likely).
