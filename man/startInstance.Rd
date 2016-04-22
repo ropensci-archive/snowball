@@ -5,7 +5,7 @@
 \title{Start an AWS instance}
 \usage{
 startInstance(ami = "ami-da406db9", type = "t2.micro", subNet = -1,
-  securityGroup = -1, userData = "", keypair = "")
+  securityGroup = -1, userData = "", keypair = NULL)
 }
 \arguments{
 \item{ami}{}
