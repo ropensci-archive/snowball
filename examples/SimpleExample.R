@@ -2,11 +2,11 @@
 # depends: (caret)
 
 
-SimpleExample<-function(data){
+SimpleExample<-function(Data){
 
 ctrl <- caret::trainControl(method = "cv", savePred=T, classProb=T)
 
-mod  <- caret::train(Species~., data=data, method = "svmLinear", trControl = ctrl)
+mod  <- caret::train(Data[,1]~., data=Data, method = "svmLinear", trControl = ctrl)
 
 return(mod)
 }
