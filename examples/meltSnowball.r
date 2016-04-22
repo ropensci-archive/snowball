@@ -70,6 +70,13 @@ if(is.null(attr(my_output_obj, "etag"))) {
     load(rawConnection(my_data_obj))
   }
 
+  ## add a heartbeat flag to S3 to checkpoint the status of the worker
+  my_data_size     <- capture.output(object.size(get(my_jobs$DATA)))
+  my_function_size <- capture.output(object.size(get(my_jobs$FUNCTION)))
+  checkpoint_string <- paste0("Data loaded has size = ", my_data_size, "\n",
+                              "Function loaded has size = ", my_function_size)
+  s3save(checkpoint_string, object=paste0(checkpoint, "_", my_jobs$WORKERID, ".txt"), bucket=my_jobs$BUCKET)
+
   ## safely evaluate the function
   safefn <- safely(as.function(eval(my_jobs$FUNCTION)))
   return_from_fn <- safefn(my_jobs$DATA, my_jobs$x, my_jobs$DOTS)
