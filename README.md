@@ -11,9 +11,9 @@ Authors:
 - [Dan Pagendam](https://github.com/dpagendam)
 - [Jonathan Carroll](https://github.com/jonocarroll)
 - [Daniel Thomas](https://github.com/daniel-t)
+- [Zoé van Havre](https://github.com/zoevanhavre/)
 - [Cameron Roach](https://github.com/camroach87?tab=activity)
 - [Felix Leung](https://github.com/felixleungsc)
-- [Zoé van Havre](https://github.com/zoevanhavre/)
 - Suren Rathnayake
 
 > Automatically sets up and starts a cluster of AWS workers, does parallel processing, and saves the output to S3 Bucket.

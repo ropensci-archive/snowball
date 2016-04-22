@@ -4,7 +4,7 @@
 #'
 #' @param echo if TRUE print the credentials read from the file to the console.
 #'
-#' @return TRUE if config sucessfully read and set. False if file could not be found.
+#' @return NULL always.
 #' @export
 #'
 #' @examples

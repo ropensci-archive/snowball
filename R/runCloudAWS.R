@@ -56,11 +56,15 @@ aws_access_key_id = ',KEY_ID,'
 
                    touch /tmp/I_AM_ALIVE3
 
-                   R BATCH --no-save < /tmp/local.R > /tmp/out.txt
+                   #R --no-save < /tmp/local.R > /tmp/out.txt 2> /tmp/out.err
+                    su ubuntu -c "R --no-save < /tmp/local.R " > /tmp/out.txt 2> /tmp/out.err
+
+
+                   sleep 10
 
                    aws s3 cp /tmp/out.txt s3://',S3_BUCKET,'/${INSTANCEID}.log  --region ',REGION,'
+                   aws s3 cp /tmp/out.err s3://',S3_BUCKET,'/${INSTANCEID}.err  --region ',REGION,'
 
-                  aws ec2 terminate-instances --instance-ids ${INSTANCEID}
 
 
                    ');
