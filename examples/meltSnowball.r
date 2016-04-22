@@ -9,8 +9,6 @@
 library(purrr)
 library(aws.s3)
 
-snowball_setup()
-
 ## bucket name that the schedule will be in
 bucket <- Sys.getenv("BUCKET")
 
