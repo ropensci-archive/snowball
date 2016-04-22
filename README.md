@@ -51,7 +51,24 @@ devtools::install_github("ropenscilabs/snowball")
 
 # How to
 
-## 1.  Pack the snowball.
+## 1. Setup snowball
+
+Save a .snowball file into your current working directory with the following configuration,
+
+AWS_ACCESS_KEY_ID: \<YOURACCESSSKEYID\>
+
+AWS_SECRET_ACCESS_KEY: \<YOURSECRETACCESSKEY\>
+
+AWS_DEFAULT_REGION: \<YOURDEFAULTREGION\>
+
+Next, run `snowball_setup` to set global variables.
+
+```r
+snowball_setup(config_file, echo)
+```
+
+
+## 2.  Pack the snowball.
 > Start an AWS instance with buckets, while setting up the data/feature split
 
 ```r
@@ -59,14 +76,14 @@ snowpack(fn, listItem, bucketNameString, rdsInputObjectString, rdsOutputString)
 ```
 
 
-## 2. Throw the snowball.
+## 3. Throw the snowball.
 > Give data location and user function
 
 ```r
 throwSnowball(...)
 ```
 
-## 3. Avalanche the outputs.
+## 4. Avalanche the outputs.
 > combine all results into one file
 
 ```r
