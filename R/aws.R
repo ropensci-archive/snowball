@@ -90,11 +90,13 @@ load_from_s3 <- function(object_name, bucket) {
   return(NULL)
 }
 
-#' Perform snowball setup
+#' Perform snowball setup. Read AWS key pair from file.
 #'
 #' @param config_file location of the configuration file, default ~/.snowball
 #'
-#' @return NULL if echo=FALSE, otherwise prints config details
+#' @param echo if TRUE print the credentials read from the file to the console.
+#'
+#' @return TRUE if config sucessfully read and set. False if file could not be found.
 #' @export
 #'
 #' @examples
@@ -112,11 +114,13 @@ snowball_setup <- function(config_file="~/.snowball", echo=TRUE) {
     Sys.setenv(AWS_ACCESS_KEY_ID = config[, "AWS_ACCESS_KEY_ID"])
     Sys.setenv(AWS_SECRET_ACCESS_KEY = config[, "AWS_SECRET_ACCESS_KEY"])
     Sys.setenv(AWS_DEFAULT_REGION = config[, "AWS_DEFAULT_REGION"])
+
   } else {
     warning("PLEASE ADD A ~/.snowball FILE WITH CONFIGURATION\n
             AWS_ACCESS_KEY_ID: <YOURACCESSSKEYID>\n
             AWS_SECRET_ACCESS_KEY: <YOURSECRETACCESSKEY>\n
             AWS_DEFAULT_REGION: <YOURDEFAULTREGION>")
+    return(FALSE)
   }
 
   if (echo) {
@@ -125,6 +129,6 @@ snowball_setup <- function(config_file="~/.snowball", echo=TRUE) {
                                       "AWS_DEFAULT_REGION"))), pretty = TRUE))
   }
 
-  return(NULL)
+  return(TRUE)
 
 }
