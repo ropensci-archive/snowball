@@ -6,7 +6,7 @@
 ## get/load purrr for purrr::safely
 ## get/load cloudyr/aws.s3 for in/out on S3
 # pacman::p_load(purrr, aws.s3)
-library(purrr)
+# library(purrr)
 library(aws.s3)
 
 ## bucket name that the schedule will be in
