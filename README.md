@@ -43,6 +43,7 @@ Key Inputs: what do you need to use `snowball`
 - Name of __S3 bucket__ to create or find.
 
 
+
 What `snowball` does:
 1. put job list to S3 and data to S3 (job list is like a job roster, a data table with names of workers and functions and   )
 2. Spin Up  all workers start monitoring S3
@@ -50,18 +51,19 @@ What `snowball` does:
   - snowball calls snowpack'
   - this writes the snowpack function that will be run on each worker.
 
+
 # How to
 
 ## 1.  Pack the snowball.
 > Start an AWS instance with buckets, while setting up the data/feature split
 
 ```r
-##snowpack(user_function, listItem, bucketname, rdsInput, rdsOut)
+snowpack(user_function, listItem, bucketname, rdsInput, rdsOut)
 
 ```
 
 ## 2. Throw the snowball.
-> Give data location and user function,
+> Give data location and user function
 
 
 ```r
@@ -74,3 +76,32 @@ throwSnow(...)
 ```r
 avalanche(...)
 ```
+
+```r
+snowpack(fn, listItem, bucketNameString, rdsInputObjectString, rdsOutputString)
+```
+
+
+
+
+## More help?
+<img align="center" src="misc/Olivia_help.gif">
+
+
+
+#### What is an S3 Bucket..??
+
+We assume you have a (very) basic understanding of  what an S3 Bucket is (it's like dropbox, for data). [Click here for info from Amazon.](https://docs.aws.amazon.com/AmazonS3/latest/UG/CreatingaBucket.html). It is very easy to create a bucket. You just click `create bucket`.
+
+Setting up the 'bucket policy allowing an IAM user full access' is harder:
+  - In the top left of an AWS window click on `Services`, then `IAM`, then click on the user you want to give access to (you, most likely).
+  - copy the User ARN into your clipboard.
+  - go to the newly created bucket, click on `Properties`
+     - click on `add policy`, which opens a window called "AWS Policy Generator"
+       - Select policy type: **S3 Bucket Policy**
+       - AWS Services should be **Amazon S3**,
+       - Actions: tick `All Actions`.
+       - Paste your ARN into principal (I know... logical.)
+       - Paste this (with YOUR bucket name) into the ARN box: `arn:aws:s3:::bucketName`
+     - Click `Add Statement`, copy the contents to clipboard.
+     Go back to bucket page, click "Edit bucket policy" and paste clipboard into this.
