@@ -57,9 +57,9 @@ my_output_obj <- head_object(paste0(my_jobs$OUTPUT, "_", my_jobs$WORKERID, ".rds
 if(is.null(attr(my_output_obj, "etag"))) {
 
   ## download the function for this worker
-  my_function_obj_exists <- get_head(paste0(my_jobs$FUNCTION, "_", my_jobs$WORKERID, ".rds"), bucket=my_jobs$BUCKET)
+  my_function_obj_exists <- get_head(my_jobs$FUNCTION, bucket=my_jobs$BUCKET)
   if (is.null(attr(my_function_obj_exists, "etag"))) {
-    my_function_obj <- get_object(paste0(my_jobs$FUNCTION, "_", my_jobs$WORKERID, ".rds"), bucket=my_jobs$BUCKET)
+    my_function_obj <- get_object(my_jobs$FUNCTION, bucket=my_jobs$BUCKET)
     load(rawConnection(my_function_obj))
   }
 
