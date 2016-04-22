@@ -7,7 +7,7 @@ Born 2016, at the [Brisbane ROpenSci Unconference][52d207af]  .
 
 Authors:
 - [Dan Pagendam](https://github.com/dpagendam)
-- [Jonathan Carroll](https://github.com/JonoCarroll)
+- [Jonathan Carroll](https://github.com/jonocarroll)
 - [Daniel Thomas](https://github.com/daniel-t)
 - [Cameron Roach](https://github.com/camroach87?tab=activity)
 - [Felix Leung](https://github.com/felixleungsc)
