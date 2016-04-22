@@ -19,75 +19,94 @@ if (length(all_buckets)==0) bucket_exists <- FALSE
 if (length(all_buckets)==1) {
   bucket_exists <- bucket %in% all_buckets$Name
 } else if (length(all_buckets)>1) {
-  bucket_exists <- any(bucket %in% unlist(lapply(1:length(all_buckets), function(x) all_buckets[[x]]$Name)))
+  bucket_exists <- any(bucket %in% unlist(lapply(1:length(all_buckets), function(x) all_buckets[[x]][["Name"]])))
 }
 if(!bucket_exists) return("SNOWMAN BUCKET NOT AVAILABLE")
 
 ## get the bucket as an object
 snowball_bucket <- get_bucket(bucket)
 
+## CHECK FOR EXISTENCE IN A LOOP
+
 ## download the schedule
-snowman_schedule <- get_object("snowman.rds", bucket=snowball_bucket)
-load(rawConnection(snowman_schedule))
+while (TRUE) { ## Loop forever waiting for a snowman.rds
 
-## SNOWMAN IS EXPECTED TO BE A DATA.FRAME OF THE FOLLOWING FORMAT
-##
-## WORKERID | INSTANCEID | FUNCTION | X | DATA | OUTPUT | DOTS
-##
+  snowman_obj_exists <- head_object("snowman.rds", bucket=snowball_bucket)
+  if(!is.null(attr(snowman_obj_exists, "etag"))) {
 
-## check the schedule and existence of output, taking the first entry for this worker
-my_jobs <- snowman[snowman$INSTANCEID==instanceID, ]
+    snowman_schedule <- get_object("snowman.rds", bucket=snowball_bucket)
+    load(rawConnection(snowman_schedule))
 
-if (nrow(my_jobs)==0) return("NO JOBS REQUESTED") # no work to do, return
-if (nrow(my_jobs)>1) my_jobs <- my_jobs[1,] ## only deal with the first job for now
+    ## SNOWMAN IS EXPECTED TO BE A DATA.FRAME OF THE FOLLOWING FORMAT
+    ##
+    ## WORKERID | INSTANCEID | FUNCTION | X | DATA | OUTPUT | DOTS
+    ##
 
-## make sure that this worker's bucket is available
-if (length(all_buckets)==0) my_bucket_exists <- FALSE
-if (length(all_buckets)==1) {
-  my_bucket_exists <- my_jobs$BUCKET %in% all_buckets$Name
-} else if (length(all_buckets)>1) {
-  my_bucket_exists <- any(my_jobs$BUCKET %in% unlist(lapply(1:length(all_buckets), function(x) all_buckets[[x]]$Name)))
-}
-if(!my_bucket_exists) return("BUCKET FOR JOB DOES NOT EXIST")
+    ## check the schedule and existence of output, taking the first entry for this worker
+    my_jobs <- snowman[snowman$INSTANCEID==instanceID, ]
 
-## try to get the results file from S3
-my_output_obj <- head_object(paste0(my_jobs$OUTPUT, "_", my_jobs$WORKERID, ".rds"), bucket=my_jobs$BUCKET)
+    if (nrow(my_jobs)==0) return("NO JOBS REQUESTED") # no work to do, return
+    if (nrow(my_jobs)>1) my_jobs <- my_jobs[1,] ## only deal with the first job for now
 
-## if there is no output already, run the calculations
-if(is.null(attr(my_output_obj, "etag"))) {
+    ## make sure that this worker's bucket is available
+    if (length(all_buckets)==0) my_bucket_exists <- FALSE
+    if (length(all_buckets)==1) {
+      my_bucket_exists <- my_jobs$BUCKET %in% all_buckets$Name
+    } else if (length(all_buckets)>1) {
+      my_bucket_exists <- any(my_jobs$BUCKET %in% unlist(lapply(1:length(all_buckets), function(x) all_buckets[[x]][["Name"]])))
+    }
+    if(!my_bucket_exists) return("BUCKET FOR JOB DOES NOT EXIST")
 
-  ## download the function for this worker
-  my_function_obj_exists <- get_head(my_jobs$FUNCTION, bucket=my_jobs$BUCKET)
-  if (is.null(attr(my_function_obj_exists, "etag"))) {
-    my_function_obj <- get_object(my_jobs$FUNCTION, bucket=my_jobs$BUCKET)
-    load(rawConnection(my_function_obj))
-  }
+    ## try to get the results file from S3
+    my_output_obj <- head_object(paste0(my_jobs$OUTPUT, "_", my_jobs$WORKERID, ".rds"), bucket=my_jobs$BUCKET)
 
-  ## download the data for this worker
-  my_data_obj_exists <- get_head(paste0(my_jobs$DATA, "_", my_jobs$WORKERID, ".rds"), bucket=my_jobs$BUCKET)
-  if (is.null(attr(my_data_obj_exists, "etag"))) {
-    my_data_obj <- get_object(paste0(my_jobs$DATA, "_", my_jobs$WORKERID, ".rds"), bucket=my_jobs$BUCKET)
-    load(rawConnection(my_data_obj))
-  }
+    ## if there is no output already, run the calculations
+    if(is.null(attr(my_output_obj, "etag"))) {
 
-  ## add a heartbeat flag to S3 to checkpoint the status of the worker
-  my_data_size     <- capture.output(object.size(get(my_jobs$DATA)))
-  my_function_size <- capture.output(object.size(get(my_jobs$FUNCTION)))
-  checkpoint_string <- paste0("Data loaded has size = ", my_data_size, "\n",
-                              "Function loaded has size = ", my_function_size)
-  s3save(checkpoint_string, object=paste0(checkpoint, "_", my_jobs$WORKERID, ".txt"), bucket=my_jobs$BUCKET)
+      ## download the function for this worker
+      my_function_obj_exists <- head_object(my_jobs$FUNCTION, bucket=my_jobs$BUCKET)
+      if (!is.null(attr(my_function_obj_exists, "etag"))) {
+        my_function_obj <- get_object(my_jobs$FUNCTION, bucket=my_jobs$BUCKET)
+        load(rawConnection(my_function_obj))
+      }
 
-  ## safely evaluate the function
-  safefn <- safely(as.function(eval(my_jobs$FUNCTION)))
-  return_from_fn <- safefn(my_jobs$DATA, my_jobs$x, my_jobs$DOTS)
+      ## download the data for this worker
+      my_data_obj_exists <- head_object(paste0(my_jobs$DATA, "_", my_jobs$WORKERID, ".rds"), bucket=my_jobs$BUCKET)
+      if (!is.null(attr(my_data_obj_exists, "etag"))) {
+        my_data_obj <- get_object(paste0(my_jobs$DATA, "_", my_jobs$WORKERID, ".rds"), bucket=my_jobs$BUCKET)
+        load(rawConnection(my_data_obj))
+      }
 
-  ## write the output to S3 (result if successful, error if not)
-  if(is.null(return_from_fn$error)) {
-    s3save(return_from_fn$result, object=paste0(my_jobs$OUTPUT, "_", my_jobs$WORKERID, ".rds"), bucket=my_jobs$BUCKET)
+      ## add a heartbeat flag to S3 to checkpoint the status of the worker
+      my_data_size     <- capture.output(object.size(get(my_jobs$DATA)))
+      my_function_size <- capture.output(object.size(get(my_jobs$FUNCTION)))
+      checkpoint_string <- paste0("Data loaded has size = ", my_data_size, "\n",
+                                  "Function loaded has size = ", my_function_size)
+      s3save(checkpoint_string, object=paste0(checkpoint, "_", my_jobs$WORKERID, ".txt"), bucket=my_jobs$BUCKET)
+
+      ## safely evaluate the function
+      safefn <- safely(as.function(eval(my_jobs$FUNCTION)))
+      return_from_fn <- safefn(my_jobs$DATA, my_jobs$x, my_jobs$DOTS)
+
+      ## write the output to S3 (result if successful, error if not)
+      if(is.null(return_from_fn$error)) {
+        s3save(return_from_fn$result, object=paste0(my_jobs$OUTPUT, "_", my_jobs$WORKERID, ".rds"), bucket=my_jobs$BUCKET)
+      } else {
+        s3save(return_from_fn$error, object=paste0(my_jobs$OUTPUT, "_", my_jobs$WORKERID, ".rds"), bucket=my_jobs$BUCKET)
+      }
+
+      return("COMPLETED JOB")
+
+    } else {
+      ## OUTPUT ALREADY EXISTS
+      ## termination?
+    }
+
   } else {
-    s3save(return_from_fn$error, object=paste0(my_jobs$OUTPUT, "_", my_jobs$WORKERID, ".rds"), bucket=my_jobs$BUCKET)
-  }
 
-  return("COMPLETED JOB")
+    ## snowman.rds not found, wait for it
+    Sys.sleep(60)
+
+  }
 
 }
