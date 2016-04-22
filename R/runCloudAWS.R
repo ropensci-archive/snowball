@@ -14,7 +14,7 @@
 #'
 
 
-# example: execCloudAWS("R/example_test_simple.R",S3_BUCKET = "auunconfdt2", S3_SCRIPT = "script.R",keypair="AUUNCONF2")
+# example: execCloudAWS("examples/meltSnowball.r",S3_BUCKET = "auunconfdt2", S3_SCRIPT = "script.R",keypair="AUUNCONF2")
 
 execCloudAWS <- function(script,
                          S3_BUCKET="auunconfdt",
@@ -65,6 +65,7 @@ aws_access_key_id = ',KEY_ID,'
                    aws s3 cp /tmp/out.txt s3://',S3_BUCKET,'/${INSTANCEID}.log  --region ',REGION,'
                    aws s3 cp /tmp/out.err s3://',S3_BUCKET,'/${INSTANCEID}.err  --region ',REGION,'
 
+                  aws ec2 terminate-instances --instance-ids ${INSTANCEID}
 
 
                    ');
