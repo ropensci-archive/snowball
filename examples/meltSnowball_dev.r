@@ -35,4 +35,4 @@ cat(paste0("instanceID = ",instanceID))
 ## get the bucket as an object
 snowball_bucket <- get_bucket(bucket)
 
-cat(paste0("bucket exists? ", bucket_exists))
+# cat(paste0("bucket exists? ", bucket_exists))
