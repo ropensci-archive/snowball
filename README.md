@@ -8,8 +8,8 @@ Authors:
 - [Dan Pagendam](https://github.com/dpagendam)
 - [Jonathan Carroll](https://github.com/JonoCarroll)
 - [Daniel Thomas](https://github.com/daniel-t)
-- [Cameron Roach](https://github.com/camroach87?tab=activity)
-- Felix Leung
+- [Cameron Roach](https://github.com/camroach87)
+- [Felix Leung](https://github.com/felixleungsc)
 - [Zoé van Havre](https://github.com/zoevanhavre/)
 - Suren Rathnayake
 
