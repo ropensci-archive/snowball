@@ -4,7 +4,7 @@
 \alias{startInstance}
 \title{Start an AWS instance}
 \usage{
-startInstance(ami = "ami-da406db9", type = "t2.micro", subNet = -1,
+startInstance(ami = "ami-36290455", type = "t2.micro", subNet = -1,
   securityGroup = -1, userData = "", keypair = NULL)
 }
 \arguments{

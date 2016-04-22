@@ -7,6 +7,8 @@
 ## get/load cloudyr/aws.s3 for in/out on S3
 pacman::p_load(purrr, aws.s3)
 
+snowball_setup()
+
 ## bucket name that the schedule will be in
 bucket <- Sys.getenv("BUCKET")
 
@@ -31,10 +33,10 @@ snowball_bucket <- get_bucket(bucket)
 ## download the schedule
 while (TRUE) { ## Loop forever waiting for a snowman.rds
 
-  snowman_obj_exists <- head_object("snowman.rds", bucket=snowball_bucket)
+  snowman_obj_exists <- head_object(object="snowman.rds", bucket=snowball_bucket)
   if(!is.null(attr(snowman_obj_exists, "etag"))) {
 
-    snowman_schedule <- get_object("snowman.rds", bucket=snowball_bucket)
+    snowman_schedule <- get_object(object="snowman.rds", bucket=snowball_bucket)
     load(rawConnection(snowman_schedule))
 
     ## SNOWMAN IS EXPECTED TO BE A DATA.FRAME OF THE FOLLOWING FORMAT

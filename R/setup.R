@@ -9,7 +9,7 @@
 #' \dontrun{
 #' snowball_setup()
 #' }
-snowball_setup <- function(config_file="~/.snowball", echo=TRUE) {
+snowball_setup <- function(config_file="~/.snowball", echo=FALSE) {
 
   if(file.exists(config_file)) {
     config <- read.dcf(config_file, fields=c("AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY", "AWS_DEFAULT_REGION"))
@@ -23,7 +23,7 @@ snowball_setup <- function(config_file="~/.snowball", echo=TRUE) {
             AWS_DEFAULT_REGION: <YOURDEFAULTREGION>")
   }
 
-  if (echo) {
+  if(echo) {
     print(toJSON(as.list(Sys.getenv(c("AWS_ACCESS_KEY_ID",
                                       "AWS_SECRET_ACCESS_KEY",
                                       "AWS_DEFAULT_REGION"))), pretty = TRUE))
