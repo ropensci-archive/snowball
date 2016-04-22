@@ -19,6 +19,7 @@ Authors:
 ```r
 devtools::install_github("ropenscilabs/snowball")
 ```
+# WARNING:  _Check yourself, before you wreck yourself!_  You are the ruler of your own Amazon costs.(AKA: no responsibility taken for your AWS bill...)
 
 `snowball` takes the location of data, a user defined function, and some basic instructions to set up and run  virtual machines in parallel on Amazon, and save results in an S3 bucket.
 
