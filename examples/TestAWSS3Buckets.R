@@ -26,7 +26,7 @@
 
 ## THIS WORKS
 
-my_bucket <- get_bucket("jcarroll1")
+my_bucket <- get_bucket("YOURBUCKETNAME")
 
 s3save(x, object="x", bucket=my_bucket)
 
