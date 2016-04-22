@@ -17,7 +17,7 @@
 #' instance_status(my_instance$item$instanceId[[1]])
 #' }
 # startInstance <- function(ami="ami-1170382b",
-startInstance <- function(ami="ami-da406db9",
+startInstance <- function(ami="ami-36290455",
                           type="t2.micro",
                           subNet=-1,
                           securityGroup=-1,
