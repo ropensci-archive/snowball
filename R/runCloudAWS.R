@@ -14,9 +14,7 @@
 #'
 execCloudAWS <- function(script,
                          S3_BUCKET="auunconfdt",
-                         S3_SCRIPT="script.R",
-                         S3_DATA_OUT="data.Rdata",
-                         S3_LOG_OUT="out.txt", ...){
+                         S3_SCRIPT="script.R", ...){
 
   KEY_ID=Sys.getenv("AWS_ACCESS_KEY_ID")
   KEY_SECRET=Sys.getenv("AWS_SECRET_ACCESS_KEY")
@@ -26,20 +24,29 @@ execCloudAWS <- function(script,
 
                    touch /tmp/I_AM_ALIVE
 
+export INSTANCEID=`curl -s http://169.254.169.254/latest/meta-data/instance-id`
+export BUCKET=',S3_BUCKET,'
+export AWS_ACCESS_KEY_ID=',KEY_ID,'
+export AWS_SECRET_ACCESS_KEY=',KEY_SECRET,'
+export AWS_DEFAULT_REGION=',REGION,'
+
+
+
                    apt-get update
                    apt-get install -y awscli
 
                    mkdir /root/.aws
-                   echo "
-                   [default]
-                   region = ',REGION,'
-                   aws_secret_access_key = ',KEY_SECRET,'
-                   aws_access_key_id = ',KEY_ID,'
-                   " > /root/.aws/config
+                   echo "[default]
+region = ',REGION,'
+aws_secret_access_key = ',KEY_SECRET,'
+aws_access_key_id = ',KEY_ID,'
+" > /root/.aws/config
 
                    cp -r /root/.aws/ /home/ubuntu/.aws/
 
                    touch /tmp/I_AM_ALIVE2
+
+                   aws s3 cp s3://',S3_BUCKET,'/',S3_SCRIPT,' /tmp/local.R --region ',REGION,' > /tmp/s3
 
                    aws s3 cp s3://',S3_BUCKET,'/',S3_SCRIPT,' /tmp/local.R --region ',REGION,'
 
@@ -47,18 +54,12 @@ execCloudAWS <- function(script,
 
                    R BATCH --no-save < /tmp/local.R > /tmp/out.txt
 
-                   aws s3 cp /tmp/data.Rdata s3://',S3_BUCKET,'/',S3_DATA_OUT,'
-                   aws s3 cp /tmp/out.txt s3://',S3_BUCKET,'/',S3_LOG_OUT,'
-
                    ');
 
+  print (userData)
   put_object(file=script, bucket = S3_BUCKET, object = S3_SCRIPT)
 
 
   instance <- startInstance(userData = userData, ...)
-
-  #wait until finished
-  #terminate_instances
-  #get data
 
 }
