@@ -54,9 +54,13 @@ aws_access_key_id = ',KEY_ID,'
 
                    R BATCH --no-save < /tmp/local.R > /tmp/out.txt
 
+                   aws s3 cp /tmp/out.txt s3://',S3_BUCKET,'/${INSTANCEID}.log  --region ',REGION,'
+
+                  aws ec2 terminate-instances --instance-ids ${INSTANCEID}
+
+
                    ');
 
-  print (userData)
   put_object(file=script, bucket = S3_BUCKET, object = S3_SCRIPT)
 
 
