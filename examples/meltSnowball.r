@@ -11,12 +11,16 @@ library(aws.s3)
 
 ## bucket name that the schedule will be in
 bucket <- Sys.getenv("BUCKET")
+cat(paste0("bucket = ",bucket))
 
 ## this worker's instance id
 instanceID <- Sys.getenv("INSTANCEID")
+cat(paste0("instanceID = ",instanceID))
 
 ## verify that the bucket is available
 all_buckets <- bucketlist()
+cat("all_buckets = ")
+print(all_buckets)
 if (length(all_buckets)==0) bucket_exists <- FALSE
 if (length(all_buckets)==1) {
   bucket_exists <- bucket %in% all_buckets$Name
