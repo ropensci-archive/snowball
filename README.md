@@ -39,13 +39,14 @@ devtools::install_github("ropenscilabs/snowball")
     - With policy allowing an IAM user full access
     - Containing the data, and the user function,  as `.rds` file
 
-Overview:
-
-1. put job list to S3 and data to S3 (job list is like a job roster, a data table with names of workers and functions )
+### Overview / workflow:
+1. Put job list and data in S3 bucket (job list is like a job roster, a data table with names of workers and functions )
 2. SpinUp  all workers start monitoring S3
 3. `snowball(function, bucketName, ...)`
   - snowball calls snowpack'
   - this writes the snowpack function that will be run on each worker.
+
+------------
 
 
 # How to
