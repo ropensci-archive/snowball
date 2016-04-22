@@ -53,6 +53,26 @@ startInstance <- function(ami="ami-da406db9",
 
 }
 
+## NOTE: PERMISSIONS NEED TO BE SET UP ON BUCKETS:
+# AWS bucket policy `{
+#   "Id": "Policy1461293793710",
+#   "Version": "2012-10-17",
+#   "Statement": [
+#     {
+#       "Sid": "Stmt1461293785500",
+#       "Action": "s3:*",
+#       "Effect": "Allow",
+#       "Resource": "arn:aws:s3:::auunconfdt2",
+#       "Principal": {
+#         "AWS": [
+#           "arn:aws:iam::830136488105:user/auunconf"
+#           ]
+#       }
+#     }
+#     ]
+# }`
+#
+
 
 #' List contents of a S3 bucket
 #'
