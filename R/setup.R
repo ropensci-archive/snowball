@@ -1,8 +1,10 @@
-#' Perform snowball setup
+#' Perform snowball setup. Read AWS key pair from file.
 #'
 #' @param config_file location of the configuration file, default ~/.snowball
 #'
-#' @return NULL if echo=FALSE, otherwise prints config details
+#' @param echo if TRUE print the credentials read from the file to the console.
+#'
+#' @return TRUE if config sucessfully read and set. False if file could not be found.
 #' @export
 #'
 #' @examples

@@ -5,7 +5,9 @@
 
 ## get/load purrr for purrr::safely
 ## get/load cloudyr/aws.s3 for in/out on S3
-pacman::p_load(purrr, aws.s3)
+# pacman::p_load(purrr, aws.s3)
+library(purrr)
+library(aws.s3)
 
 snowball_setup()
 
@@ -107,6 +109,8 @@ while (TRUE) { ## Loop forever waiting for a snowman.rds
   } else {
 
     ## snowman.rds not found, wait for it
+    waiting_string <- "WAITING FOR SCHEDULER"
+    s3save(waiting_string, object=paste0("WAITING_", instanceID, ".txt"), bucket=snowball_bucket)
     Sys.sleep(60)
 
   }
