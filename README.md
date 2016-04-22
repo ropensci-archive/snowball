@@ -16,37 +16,33 @@ Authors:
 - [Zoé van Havre](https://github.com/zoevanhavre/)
 - Suren Rathnayake
 
-> Automatically sets up and starts a cluster of AWS workers, doing parallel processing, and saving the compiled output.
+> Automatically sets up and starts a cluster of AWS workers, does parallel processing, and saves the output to S3 Bucket.
+
 
 ```r
+# Install
 devtools::install_github("ropenscilabs/snowball")
 ```
-# WARNING:  _Check yourself, before you wreck yourself!_  You are the ruler of your own Amazon costs.(AKA: no responsibility taken for your AWS bill...)
+
+# WARNING:  _Check yourself, before you wreck yourself!_  You are the ruler of your own Amazon costs.(No responsibility taken for your AWS bill...)
 
 <img align="center" src="misc/snowman1.jpg">
 
 `snowball` takes the location of data, a user defined function, and some basic instructions to set up and run  virtual machines in parallel on Amazon, and save results in an S3 bucket.
 
 
-### Overview
-
-Key Inputs: what do you need to use `snowball`
+### Requirements
 - An AWS account, with:
   - IAM user with permissions to manage EC2 and S3.
   - API keys for the IM account.
   - an S3 bucket
-    - with bucket policy allowing an IAM user full access
-- Data location.
-- AWS acount _user Data_ and _keypair_
-- Number of workers (virtual machines) to run
-- RAM of each worker
-- Name of __S3 bucket__ to create or find.
+    - With policy allowing an IAM user full access
+    - Containing the data, and the user function,  as `.rds` file
 
+Overview:
 
-
-What `snowball` does:
-1. put job list to S3 and data to S3 (job list is like a job roster, a data table with names of workers and functions and   )
-2. Spin Up  all workers start monitoring S3
+1. put job list to S3 and data to S3 (job list is like a job roster, a data table with names of workers and functions )
+2. SpinUp  all workers start monitoring S3
 3. `snowball(function, bucketName, ...)`
   - snowball calls snowpack'
   - this writes the snowpack function that will be run on each worker.
@@ -58,16 +54,15 @@ What `snowball` does:
 > Start an AWS instance with buckets, while setting up the data/feature split
 
 ```r
-snowpack(user_function, listItem, bucketname, rdsInput, rdsOut)
-
+snowpack(fn, listItem, bucketNameString, rdsInputObjectString, rdsOutputString)
 ```
+
 
 ## 2. Throw the snowball.
 > Give data location and user function
 
-
 ```r
-throwSnow(...)
+throwSnowball(...)
 ```
 
 ## 3. Avalanche the outputs.
@@ -77,9 +72,9 @@ throwSnow(...)
 avalanche(...)
 ```
 
-```r
-snowpack(fn, listItem, bucketNameString, rdsInputObjectString, rdsOutputString)
-```
+
+
+
 
 
 
@@ -87,6 +82,9 @@ snowpack(fn, listItem, bucketNameString, rdsInputObjectString, rdsOutputString)
 ## More help?
 <img align="center" src="misc/Olivia_help.gif">
 
+### Snow what?
+
+Check out the [Snow](https://cran.r-project.org/web/packages/snow/index.html) and [Snowfall](https://cran.r-project.org/web/packages/snowfall/index.html) package documentations.
 
 
 #### What is an S3 Bucket..??
