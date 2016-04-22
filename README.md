@@ -1,7 +1,7 @@
 
 # [snowball](https://github.com/ropenscilabs/snowball)
 An R package to do parallel processing on Amazon, (more) easily.
-Born 2016, at the [Brisbane ROpenSci Unconference][52d207af]  .
+Born 2016, at the [Brisbane ROpenSci Unconference][52d207af]. This is a work in progress, and is currently in development. 
 
 <img align="center" src="misc/CHsnowballs.gif">
 
@@ -92,7 +92,7 @@ avalanche(...)
 
 
 
-
+---------
 
 
 
