@@ -7,4 +7,5 @@ Description: Spin up a head node, which spins up worker nodes, and performs para
 License: What license is it under?
 LazyData: TRUE
 LazyLoad: TRUE
-Depends: aws.ec2, aws.s3, snow, jsonlite
+Depends: snow, jsonlite
+Remote: cloudyr/aws.ec2, cloudyr/aws.s3
